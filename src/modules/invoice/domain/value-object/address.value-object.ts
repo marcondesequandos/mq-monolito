@@ -8,11 +8,20 @@ export default class Address implements ValueObject {
   _state: string = "";
   _zipCode: string = "";
 
-  constructor(street: string, number: string, zipCode: string, city: string) {
+  constructor(
+    street: string,
+    number: string,
+    complement: string,
+    city: string,
+    state: string,
+    zipCode: string
+  ) {
     this._street = street;
     this._number = number;
-    this._zipCode = zipCode;
+    this._complement = complement;
     this._city = city;
+    this._state = state;
+    this._zipCode = zipCode;
 
     this.validate();
   }
@@ -23,6 +32,9 @@ export default class Address implements ValueObject {
 
   get number(): string {
     return this._number;
+  }
+  get complement(): string {
+    return this._complement;
   }
 
   get city(): string {

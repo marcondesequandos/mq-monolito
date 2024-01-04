@@ -6,6 +6,8 @@ type InvoiceItemProps = {
   id?: Id;
   name: string;
   price: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export default class InvoiceItems extends BaseEntity implements AggregateRoot {
@@ -13,7 +15,7 @@ export default class InvoiceItems extends BaseEntity implements AggregateRoot {
   private _price: number;
 
   constructor(props: InvoiceItemProps) {
-    super(props.id);
+    super(props.id, props.createdAt, props.updatedAt);
     this._name = props.name;
     this._price = props.price;
   }
