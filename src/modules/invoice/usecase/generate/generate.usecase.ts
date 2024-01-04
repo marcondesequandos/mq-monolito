@@ -19,15 +19,6 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
   async execute(
     input: GenerateInvoiceUseCaseInputDto
   ): Promise<GenerateInvoiceUseCaseOutputDto> {
-    const itensFromInvoice = input.items.map((item) => {
-      return new InvoiceItems({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        createdAt: new Date(),
-      });
-    });
-
     const props = {
       id: new Id(input.id) || new Id(),
       name: input.name,
@@ -40,12 +31,31 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
         input.address.state,
         input.address.zipCode
       ),
-      items: itensFromInvoice,
+      items: input.items.map((item) => {
+        return new InvoiceItems({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          createdAt: new Date(),
+        });
+      }),
     };
+
+    //também demorei pra lembrar de usar o map ao invés do forEach que eu estava tentando anteriormente
 
     const invoice = new Invoice(props);
 
     this._invoiceRepository.generate(invoice);
+
+    const itensFromInvoice = invoice.items.map((item) => {
+      return new InvoiceItems({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+      });
+    });
+
+    //fiquei travado um tempo e depois vi que não estava inicializando o a propriedade _items na entidade Invoice nem colocado o get items()
 
     return {
       id: invoice.id.id,
