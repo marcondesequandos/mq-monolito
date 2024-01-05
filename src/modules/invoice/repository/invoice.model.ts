@@ -47,5 +47,8 @@ export class InvoiceModel extends Model {
   items: InvoiceItemModel[];
 
   @Column({ allowNull: false })
+  total: number;
+
+  @Column({ allowNull: false })
   createdAt: Date;
 }

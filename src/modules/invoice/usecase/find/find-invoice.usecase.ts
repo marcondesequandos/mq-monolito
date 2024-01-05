@@ -49,14 +49,8 @@ export default class FindInvoiceUseCase implements UseCaseInterface {
         zipCode: invoice.address.zipCode,
       },
       items: invoiceItems,
-      total: this.invoiceTotal(invoiceItems),
+      total: invoice.total,
       createdAt: invoice.createdAt,
     };
-  }
-
-  private invoiceTotal(items: Array<any>): number {
-    const sumOfTotal = items.reduce((total, item) => total + item.price, 0);
-
-    return sumOfTotal;
   }
 }

@@ -63,7 +63,6 @@ describe("InvoiceRepository test", () => {
         });
       }),
     });
-    // console.log("invoiceProps =>", invoiceProps.address.city);
 
     const invoice = new Invoice(invoiceProps);
     const invoiceRepository = new InvoiceRepository();
@@ -90,5 +89,73 @@ describe("InvoiceRepository test", () => {
     expect(invoiceProps.items[1].id.id).toBe(invoiceDb.items[1].id);
     expect(invoiceProps.items[1].name).toBe(invoiceDb.items[1].name);
     expect(invoiceProps.items[1].price).toBe(invoiceDb.items[1].price);
+    expect(invoiceDb.total).toBe(
+      invoice.items.reduce((total_price, item) => total_price + item.price, 0)
+    );
+  });
+
+  it("should find a invoice", async () => {
+    const invoiceItems = [
+      {
+        id: new Id("1"),
+        name: "Gato de Botas",
+        price: 50,
+      },
+      {
+        id: new Id("2"),
+        name: "Buzz Lightyear",
+        price: 30,
+      },
+    ];
+
+    //OutputInvoice
+
+    const invoiceProps = new Invoice({
+      id: new Id("1"),
+      name: "Client 1",
+      document: "123456789",
+      address: new Address(
+        "Rua Sr Cabeca de Batata",
+        "123",
+        "Apartamento",
+        "Sorocaba",
+        "Sao Paulo",
+        "1234569"
+      ),
+      items: invoiceItems.map((item) => {
+        return new InvoiceItems({
+          id: new Id(item.id.id),
+          name: item.name,
+          price: item.price,
+        });
+      }),
+    });
+
+    const invoice = new Invoice(invoiceProps);
+    const invoiceRepository = new InvoiceRepository();
+    await invoiceRepository.generate(invoice);
+
+    const result = await invoiceRepository.find(invoice.id.id);
+
+    expect(result).toBeDefined();
+    expect(result.id.id).toBe(invoice.id.id);
+    expect(result.name).toBe(invoice.name);
+    expect(result.document).toBe(invoice.document);
+    expect(result.address.street).toBe(invoice.address.street);
+    expect(result.address.number).toBe(invoice.address.number);
+    expect(result.address.complement).toBe(invoice.address.complement);
+    expect(result.address.city).toBe(invoice.address.city);
+    expect(result.address.state).toBe(invoice.address.state);
+    expect(result.address.zipCode).toBe(invoice.address.zipCode);
+    expect(result.items.length).toBe(2);
+    expect(result.items[0].id.id).toBe(invoice.items[0].id.id);
+    expect(result.items[0].name).toBe(invoice.items[0].name);
+    expect(result.items[0].price).toBe(invoice.items[0].price);
+    expect(result.items[1].id.id).toBe(invoice.items[1].id.id);
+    expect(result.items[1].name).toBe(invoice.items[1].name);
+    expect(result.items[1].price).toBe(invoice.items[1].price);
+    expect(result.total).toBe(
+      invoice.items.reduce((total_price, item) => total_price + item.price, 0)
+    );
   });
 });

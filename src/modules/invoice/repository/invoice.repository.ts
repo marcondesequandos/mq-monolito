@@ -24,6 +24,7 @@ export default class InvoiceRepository implements InvoiceGateway {
           name: item.name,
           price: item.price,
         })),
+        total: invoice.total,
         createdAt: invoice.createdAt,
       },
       {
@@ -40,8 +41,6 @@ export default class InvoiceRepository implements InvoiceGateway {
     if (!invoice) {
       throw new Error(`Invoice with id ${id} not found`);
     }
-
-    console.log("InvoiceFrom InvoiceRepository=>", invoice);
 
     return new Invoice({
       id: new Id(invoice.id),

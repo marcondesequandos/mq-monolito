@@ -63,13 +63,7 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
       document: invoice.document,
       address: invoice.address,
       items: itensFromInvoice,
-      total: this.invoiceTotal(itensFromInvoice),
+      total: invoice.total,
     };
-  }
-
-  private invoiceTotal(items: InvoiceItems[]): number {
-    const sumOfTotal = items.reduce((total, item) => total + item.price, 0);
-
-    return sumOfTotal;
   }
 }
