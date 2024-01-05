@@ -7,7 +7,7 @@ import InvoiceGateway from "../../gateway/invoice.gateway";
 import {
   GenerateInvoiceUseCaseInputDto,
   GenerateInvoiceUseCaseOutputDto,
-} from "./generate.usecase.dto";
+} from "./generate-invoice.usecase.dto";
 
 export default class GenerateInvoiceUseCase implements UseCaseInterface {
   private _invoiceRepository: InvoiceGateway;

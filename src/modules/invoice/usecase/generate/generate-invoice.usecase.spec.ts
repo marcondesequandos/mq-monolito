@@ -1,7 +1,7 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
 import Address from "../../domain/value-object/address.value-object";
-import GenerateInvoiceUseCase from "./generate.usecase";
-import { GenerateInvoiceUseCaseInputDto } from "./generate.usecase.dto";
+import GenerateInvoiceUseCase from "./generate-invoice.usecase";
+import { GenerateInvoiceUseCaseInputDto } from "./generate-invoice.usecase.dto";
 
 const MockRepository = () => {
   return {
