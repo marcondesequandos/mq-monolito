@@ -1,5 +1,3 @@
-import Id from "../../../@shared/domain/value-object/id.value-object";
-import Address from "../../domain/value-object/address.value-object";
 import GenerateInvoiceUseCase from "./generate-invoice.usecase";
 import { GenerateInvoiceUseCaseInputDto } from "./generate-invoice.usecase.dto";
 
@@ -18,22 +16,20 @@ describe("Generate invoice use case unit test", () => {
       id: "1",
       name: "Client 1",
       document: "123456789",
-      address: {
-        street: "Rua Sr Cabeca de Batata",
-        number: "123",
-        complement: "Apartamento",
-        city: "Sorocaba",
-        state: "Sao Paulo",
-        zipCode: "1234569",
-      },
+      street: "Rua Sr Cabeca de Batata",
+      number: "123",
+      complement: "Apartamento",
+      city: "Sorocaba",
+      state: "Sao Paulo",
+      zipCode: "1234569",
       items: [
         {
-          id: new Id("1"),
+          id: "1",
           name: "Gato de Botas",
           price: 50,
         },
         {
-          id: new Id("2"),
+          id: "2",
           name: "Buzz Lightyear",
           price: 30,
         },
@@ -46,12 +42,12 @@ describe("Generate invoice use case unit test", () => {
     expect(result.id).toBeDefined();
     expect(result.name).toBe(input.name);
     expect(result.document).toBe(input.document);
-    expect(result.address.street).toBe(input.address.street);
-    expect(result.address.number).toBe(input.address.number);
-    expect(result.address.complement).toBe(input.address.complement);
-    expect(result.address.city).toBe(input.address.city);
-    expect(result.address.state).toBe(input.address.state);
-    expect(result.address.zipCode).toBe(input.address.zipCode);
+    expect(result.address.street).toBe(input.street);
+    expect(result.address.number).toBe(input.number);
+    expect(result.address.complement).toBe(input.complement);
+    expect(result.address.city).toBe(input.city);
+    expect(result.address.state).toBe(input.state);
+    expect(result.address.zipCode).toBe(input.zipCode);
     expect(result.items[0].id).toBe(input.items[0].id);
     expect(result.items[0].name).toBe(input.items[0].name);
     expect(result.items[0].price).toBe(input.items[0].price);

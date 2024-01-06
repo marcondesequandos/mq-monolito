@@ -6,7 +6,6 @@ import Address from "../domain/value-object/address.value-object";
 import InvoiceItems from "../domain/entity/InvoiceItems";
 import InvoiceRepository from "./invoice.repository";
 import { InvoiceItemModel } from "./invoice-item.model";
-import ClientRepository from "../../client-adm/repository/client.repository";
 
 describe("InvoiceRepository test", () => {
   let sequelize: Sequelize;

@@ -24,16 +24,16 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
       name: input.name,
       document: input.document,
       address: new Address(
-        input.address.street,
-        input.address.number,
-        input.address.complement,
-        input.address.city,
-        input.address.state,
-        input.address.zipCode
+        input.street,
+        input.number,
+        input.complement,
+        input.city,
+        input.state,
+        input.zipCode
       ),
       items: input.items.map((item) => {
         return new InvoiceItems({
-          id: item.id,
+          id: new Id(item.id),
           name: item.name,
           price: item.price,
           createdAt: new Date(),
@@ -47,12 +47,12 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
 
     this._invoiceRepository.generate(invoice);
 
-    const itensFromInvoice = invoice.items.map((item) => {
-      return new InvoiceItems({
-        id: item.id,
+    const itensFromInvoice = invoice.items.map((item: any) => {
+      return {
+        id: item.id.id,
         name: item.name,
         price: item.price,
-      });
+      };
     });
 
     //fiquei travado um tempo e depois vi que não estava inicializando o a propriedade _items na entidade Invoice nem colocado o get items()
