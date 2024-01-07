@@ -15,12 +15,12 @@ import FindInvoiceUseCase from "./find-invoice.usecase";
 
 const invoiceItems = [
   {
-    id: new Id("1"),
+    id: "1",
     name: "Gato de Botas",
     price: 50,
   },
   {
-    id: new Id("2"),
+    id: "2",
     name: "Buzz Lightyear",
     price: 30,
   },
@@ -42,7 +42,7 @@ const invoice = new Invoice({
   ),
   items: invoiceItems.map((item) => {
     return new InvoiceItems({
-      id: item.id,
+      id: new Id(item.id),
       name: item.name,
       price: item.price,
     });
@@ -80,10 +80,10 @@ describe("findInvoice usecase unit test", () => {
     expect(result.address.number).toBe(invoice.address.number);
     expect(result.address.zipCode).toBe(invoice.address.zipCode);
     expect(result.address.state).toBe(invoice.address.state);
-    expect(result.items[0].id).toBe(invoice.items[0].id.id);
+    expect(result.items[0].id).toBe(invoice.items[0].id);
     expect(result.items[0].name).toBe(invoice.items[0].name);
     expect(result.items[0].price).toBe(invoice.items[0].price);
-    expect(result.items[1].id).toBe(invoice.items[1].id.id);
+    expect(result.items[1].id).toBe(invoice.items[1].id);
     expect(result.items[1].name).toBe(invoice.items[1].name);
     expect(result.items[1].price).toBe(invoice.items[1].price);
     expect(result.total).toBe(80);

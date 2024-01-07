@@ -29,12 +29,12 @@ describe("InvoiceRepository test", () => {
   it("should generate a invoice", async () => {
     const invoiceItems = [
       {
-        id: new Id("1"),
+        id: "1",
         name: "Gato de Botas",
         price: 50,
       },
       {
-        id: new Id("2"),
+        id: "2",
         name: "Buzz Lightyear",
         price: 30,
       },
@@ -56,7 +56,7 @@ describe("InvoiceRepository test", () => {
       ),
       items: invoiceItems.map((item) => {
         return new InvoiceItems({
-          id: new Id(item.id.id),
+          id: new Id(item.id),
           name: item.name,
           price: item.price,
         });
@@ -96,18 +96,16 @@ describe("InvoiceRepository test", () => {
   it("should find a invoice", async () => {
     const invoiceItems = [
       {
-        id: new Id("1"),
+        id: "1",
         name: "Gato de Botas",
         price: 50,
       },
       {
-        id: new Id("2"),
+        id: "2",
         name: "Buzz Lightyear",
         price: 30,
       },
     ];
-
-    //OutputInvoice
 
     const invoiceProps = new Invoice({
       id: new Id("1"),
@@ -123,7 +121,7 @@ describe("InvoiceRepository test", () => {
       ),
       items: invoiceItems.map((item) => {
         return new InvoiceItems({
-          id: new Id(item.id.id),
+          id: new Id(item.id),
           name: item.name,
           price: item.price,
         });

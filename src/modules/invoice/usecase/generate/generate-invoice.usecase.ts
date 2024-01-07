@@ -47,14 +47,6 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
 
     this._invoiceRepository.generate(invoice);
 
-    const itensFromInvoice = invoice.items.map((item: any) => {
-      return {
-        id: item.id.id,
-        name: item.name,
-        price: item.price,
-      };
-    });
-
     //fiquei travado um tempo e depois vi que não estava inicializando o a propriedade _items na entidade Invoice nem colocado o get items()
 
     return {
@@ -62,7 +54,13 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
       name: invoice.name,
       document: invoice.document,
       address: invoice.address,
-      items: itensFromInvoice,
+      items: invoice.items.map((item: any) => {
+        return {
+          id: item.id.id,
+          name: item.name,
+          price: item.price,
+        };
+      }),
       total: invoice.total,
     };
   }

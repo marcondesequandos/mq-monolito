@@ -27,15 +27,6 @@ export default class FindInvoiceUseCase implements UseCaseInterface {
   ): Promise<FindInvoiceUseCaseOutputDTO> {
     const invoice = await this._invoiceRepository.find(input.id);
 
-    const invoiceItems = invoice.items.map((item) => {
-      return {
-        id: item.id.id,
-        name: item.name,
-        price: item.price,
-        createdAt: item.createdAt,
-      };
-    });
-
     return {
       id: invoice.id.id,
       name: invoice.name,
@@ -48,7 +39,13 @@ export default class FindInvoiceUseCase implements UseCaseInterface {
         state: invoice.address.state,
         zipCode: invoice.address.zipCode,
       },
-      items: invoiceItems,
+      items: invoice.items.map((item: any) => {
+        return {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+        };
+      }),
       total: invoice.total,
       createdAt: invoice.createdAt,
     };

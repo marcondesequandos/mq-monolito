@@ -1,13 +1,10 @@
 import {
   Column,
-  DataType,
   HasMany,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import InvoiceItems from "../domain/entity/InvoiceItems";
-import Address from "../domain/value-object/address.value-object";
 import { InvoiceItemModel } from "./invoice-item.model";
 
 @Table({
@@ -16,7 +13,7 @@ import { InvoiceItemModel } from "./invoice-item.model";
 })
 export class InvoiceModel extends Model {
   @PrimaryKey
-  @Column({ allowNull: false })
+  @Column({ allowNull: false, field: "invoice_id" })
   id: string;
 
   @Column({ allowNull: false })
