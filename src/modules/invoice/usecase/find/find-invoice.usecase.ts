@@ -10,14 +10,6 @@ import {
 } from "./find-invoice.usecase.dto";
 
 export default class FindInvoiceUseCase implements UseCaseInterface {
-  //Eu quero poder encontras as Invoices geradas através de um id
-  //Para isso preciso criar:
-  //parâmetro privado repositório type Gateway (para ser inicializado)
-  //constructor recebendo readonly parameter do repositório type Gateway (que diz o parâmetro a ser recebido pela classe)
-  //inicialização do parâmetro da classe dentro do constructor da classe com o repositório recebido para poder ser utilizado depois no método execute
-  //método execute recebe dados da requisição do repositório find ao procurar com dados do inputDto
-  //retorna output esperado
-
   private _invoiceRepository: InvoiceGateway;
   constructor(private readonly invoiceRepository: InvoiceGateway) {
     this._invoiceRepository = invoiceRepository;
@@ -39,13 +31,11 @@ export default class FindInvoiceUseCase implements UseCaseInterface {
         state: invoice.address.state,
         zipCode: invoice.address.zipCode,
       },
-      items: invoice.items.map((item: any) => {
-        return {
-          id: item.id,
-          name: item.name,
-          price: item.price,
-        };
-      }),
+      items: invoice.items.map((item) => ({
+        id: item.id.id,
+        name: item.name,
+        price: item.price,
+      })),
       total: invoice.total,
       createdAt: invoice.createdAt,
     };

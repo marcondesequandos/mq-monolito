@@ -12,7 +12,7 @@ import { InvoiceModel } from "./invoice.model";
   tableName: "invoices_items",
   timestamps: false,
 })
-export class InvoiceItemModel extends Model {
+export class InvoiceItemsModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   id: string;

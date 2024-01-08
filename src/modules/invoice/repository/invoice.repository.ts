@@ -3,7 +3,7 @@ import InvoiceItems from "../domain/entity/InvoiceItems";
 import Invoice from "../domain/entity/invoice";
 import Address from "../domain/value-object/address.value-object";
 import InvoiceGateway from "../gateway/invoice.gateway";
-import { InvoiceItemModel } from "./invoice-item.model";
+import { InvoiceItemsModel } from "./invoice-item.model";
 import { InvoiceModel } from "./invoice.model";
 
 export default class InvoiceRepository implements InvoiceGateway {
@@ -28,14 +28,14 @@ export default class InvoiceRepository implements InvoiceGateway {
         createdAt: invoice.createdAt,
       },
       {
-        include: [InvoiceItemModel],
+        include: [InvoiceItemsModel],
       }
     );
   }
   async find(id: string): Promise<Invoice> {
     const invoice = await InvoiceModel.findOne({
       where: { id },
-      include: [InvoiceItemModel],
+      include: [InvoiceItemsModel],
     });
 
     if (!invoice) {
@@ -54,7 +54,7 @@ export default class InvoiceRepository implements InvoiceGateway {
         invoice.state,
         invoice.zipCode
       ),
-      items: invoice.items.map((item) => {
+      items: invoice.items.map((item: any) => {
         return new InvoiceItems({
           id: new Id(item.id),
           name: item.name,
@@ -63,7 +63,6 @@ export default class InvoiceRepository implements InvoiceGateway {
         });
       }),
       createdAt: invoice.createdAt,
-      updatedAt: invoice.updatedAt,
     });
   }
 }

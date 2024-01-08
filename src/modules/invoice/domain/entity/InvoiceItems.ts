@@ -28,7 +28,3 @@ export default class InvoiceItems extends BaseEntity implements AggregateRoot {
     return this._price;
   }
 }
-
-// id?: Id // criada automaticamente
-// name: string
-// price: number

@@ -42,12 +42,12 @@ describe("Generate invoice use case unit test", () => {
     expect(result.id).toBeDefined();
     expect(result.name).toBe(input.name);
     expect(result.document).toBe(input.document);
-    expect(result.address.street).toBe(input.street);
-    expect(result.address.number).toBe(input.number);
-    expect(result.address.complement).toBe(input.complement);
-    expect(result.address.city).toBe(input.city);
-    expect(result.address.state).toBe(input.state);
-    expect(result.address.zipCode).toBe(input.zipCode);
+    expect(result.street).toBe(input.street);
+    expect(result.number).toBe(input.number);
+    expect(result.complement).toBe(input.complement);
+    expect(result.city).toBe(input.city);
+    expect(result.state).toBe(input.state);
+    expect(result.zipCode).toBe(input.zipCode);
     expect(result.items[0].id).toBe(input.items[0].id);
     expect(result.items[0].name).toBe(input.items[0].name);
     expect(result.items[0].price).toBe(input.items[0].price);

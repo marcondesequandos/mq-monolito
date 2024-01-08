@@ -5,7 +5,7 @@ import Invoice from "../domain/entity/invoice";
 import Address from "../domain/value-object/address.value-object";
 import InvoiceItems from "../domain/entity/InvoiceItems";
 import InvoiceRepository from "./invoice.repository";
-import { InvoiceItemModel } from "./invoice-item.model";
+import { InvoiceItemsModel } from "./invoice-item.model";
 
 describe("InvoiceRepository test", () => {
   let sequelize: Sequelize;
@@ -18,7 +18,7 @@ describe("InvoiceRepository test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([InvoiceModel, InvoiceItemModel]);
+    await sequelize.addModels([InvoiceModel, InvoiceItemsModel]);
     await sequelize.sync();
   });
 
@@ -39,8 +39,6 @@ describe("InvoiceRepository test", () => {
         price: 30,
       },
     ];
-
-    //OutputInvoice
 
     const invoiceProps = new Invoice({
       id: new Id("1"),
@@ -69,7 +67,7 @@ describe("InvoiceRepository test", () => {
 
     const invoiceDb = await InvoiceModel.findOne({
       where: { id: "1" },
-      include: [InvoiceItemModel],
+      include: [InvoiceItemsModel],
     });
 
     expect(invoiceProps.id.id).toEqual(invoiceDb.id);

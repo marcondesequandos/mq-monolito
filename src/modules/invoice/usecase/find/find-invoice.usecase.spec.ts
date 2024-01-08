@@ -3,15 +3,6 @@ import InvoiceItems from "../../domain/entity/InvoiceItems";
 import Invoice from "../../domain/entity/invoice";
 import Address from "../../domain/value-object/address.value-object";
 import FindInvoiceUseCase from "./find-invoice.usecase";
-//Eu quero poder encontras as Invoices geradas através de um id
-//Para isso preciso criar:
-//parâmetro privado repositório type Gateway (para ser inicializado)
-//constructor recebendo readonly parameter do repositório type Gateway (que diz o parâmetro a ser recebido pela classe)
-//inicialização do parâmetro da classe dentro do constructor da classe com o repositório recebido para poder ser utilizado depois no método execute
-//método execute recebe dados da requisição do repositório find ao procurar com dados do inputDto
-//retorna output esperado
-
-//inputInvoiceItem
 
 const invoiceItems = [
   {
@@ -25,8 +16,6 @@ const invoiceItems = [
     price: 30,
   },
 ];
-
-//OutputInvoice
 
 const invoice = new Invoice({
   id: new Id("1"),
@@ -59,8 +48,6 @@ const MockRepository = () => {
 
 describe("findInvoice usecase unit test", () => {
   it("should find an invoice", async () => {
-    //inicializa repositório e use case
-
     const invoiceRepository = MockRepository();
     const usecase = new FindInvoiceUseCase(invoiceRepository);
 
@@ -80,10 +67,10 @@ describe("findInvoice usecase unit test", () => {
     expect(result.address.number).toBe(invoice.address.number);
     expect(result.address.zipCode).toBe(invoice.address.zipCode);
     expect(result.address.state).toBe(invoice.address.state);
-    expect(result.items[0].id).toBe(invoice.items[0].id);
+    expect(result.items[0].id).toBe(invoice.items[0].id.id);
     expect(result.items[0].name).toBe(invoice.items[0].name);
     expect(result.items[0].price).toBe(invoice.items[0].price);
-    expect(result.items[1].id).toBe(invoice.items[1].id);
+    expect(result.items[1].id).toBe(invoice.items[1].id.id);
     expect(result.items[1].name).toBe(invoice.items[1].name);
     expect(result.items[1].price).toBe(invoice.items[1].price);
     expect(result.total).toBe(80);
