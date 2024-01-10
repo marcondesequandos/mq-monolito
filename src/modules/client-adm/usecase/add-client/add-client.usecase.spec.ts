@@ -14,7 +14,13 @@ describe("Add client use case unit test", () => {
     const input = {
       name: "João",
       email: "joao@bol.com.br",
-      address: "R Major Sertorio, 422",
+      document: "xpto",
+      street: "Rua Bla",
+      number: "123",
+      complement: "456",
+      city: "Dinossauro",
+      state: "Verde",
+      zipCode: "123",
     };
 
     const result = await usecase.execute(input);
@@ -23,6 +29,11 @@ describe("Add client use case unit test", () => {
     expect(result.id).toBeDefined();
     expect(result.name).toBe(input.name);
     expect(result.email).toBe(input.email);
-    expect(result.address).toBe(input.address);
+    expect(result.street).toBe(input.street);
+    expect(result.number).toBe(input.number);
+    expect(result.complement).toBe(input.complement);
+    expect(result.city).toBe(input.city);
+    expect(result.state).toBe(input.state);
+    expect(result.zipCode).toBe(input.zipCode);
   });
 });

@@ -61,6 +61,35 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       products,
     });
 
+    const payment = await this._paymentFacade.process({
+      orderId: order.id.id,
+      amount: order.total,
+    });
+
+    const invoice =
+      payment.status === "approved"
+        ? await this._invoicefacade.generateInvoice({
+            name: client.name,
+            document: client.document,
+            street: client.street,
+            number: client.number,
+            complement: client.complement,
+            city: client.city,
+            state: client.state,
+            zipCode: client.zipCode,
+            items: products.map((p) => {
+              return {
+                id: p.id.id,
+                name: p.name,
+                price: p.salesPrice,
+              };
+            }),
+          })
+        : null;
+
+    payment.status === "approved" && order.approved();
+    this._repository.addOrder(order);
+
     // processpayment => paymentfacade.process (orderid, amount)
 
     // caso pagamento seja aprovado. -> Gerar invoice
@@ -68,11 +97,15 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
 
     // retornar dto
     return {
-      id: "",
-      invoiceId: "",
-      status: "",
-      total: 0,
-      products: [],
+      id: order.id.id,
+      invoiceId: payment.status === "approved" ? invoice.id : null,
+      status: order.status,
+      total: order.total,
+      products: order.products.map((p) => {
+        return {
+          productId: p.id.id,
+        };
+      }),
     };
   }
 
