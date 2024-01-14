@@ -1,11 +1,11 @@
 import UseCaseInterface from "../../../@shared/usecase/use-case.interface";
-import ProductGateway from "../../gateway/product.gateway";
+import ProductRegistrationGateway from "../../gateway/product.gateway";
 import { CheckStockInputDto, CheckStockOutputDto } from "./check-stock.dto";
 
 export default class CheckStockUseCase implements UseCaseInterface {
-  private _productRepository: ProductGateway;
+  private _productRepository: ProductRegistrationGateway;
 
-  constructor(_productRepository: ProductGateway) {
+  constructor(_productRepository: ProductRegistrationGateway) {
     this._productRepository = _productRepository;
   }
   async execute(input: CheckStockInputDto): Promise<CheckStockOutputDto> {

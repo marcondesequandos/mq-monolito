@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
-import { ProductModel } from "../repository/product.model";
-import ProductAdmFacadeFactory from "../factory/facade.factory";
+import { ProductRegistrationModel } from "../../infrastructure/product-registration/product-registration.model";
+import ProductRegistrationFacadeFactory from "../factory/facade.factory";
 
 describe("ProductAdmFacade test", () => {
   let sequelize: Sequelize;
@@ -13,7 +13,7 @@ describe("ProductAdmFacade test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([ProductModel]);
+    await sequelize.addModels([ProductRegistrationModel]);
     await sequelize.sync();
   });
 
@@ -22,7 +22,7 @@ describe("ProductAdmFacade test", () => {
   });
 
   it("should create a product", async () => {
-    const productFacade = ProductAdmFacadeFactory.create();
+    const productFacade = ProductRegistrationFacadeFactory.create();
 
     const input = {
       id: "1",
@@ -34,7 +34,9 @@ describe("ProductAdmFacade test", () => {
 
     await productFacade.addProduct(input);
 
-    const product = await ProductModel.findOne({ where: { id: "1" } });
+    const product = await ProductRegistrationModel.findOne({
+      where: { id: "1" },
+    });
 
     expect(product).toBeDefined();
     expect(product.id).toBe(input.id);
@@ -45,7 +47,7 @@ describe("ProductAdmFacade test", () => {
   });
 
   it("should check product stock", async () => {
-    const productFacade = ProductAdmFacadeFactory.create();
+    const productFacade = ProductRegistrationFacadeFactory.create();
     const input = {
       id: "1",
       name: "Product 1",

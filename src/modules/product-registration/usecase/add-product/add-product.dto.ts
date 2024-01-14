@@ -1,11 +1,11 @@
-export interface AddProductInputDto {
+export interface AddProductRegistrationInputDto {
   id?: string;
   name: string;
   description: string;
   purchasePrice: number;
   stock: number;
 }
-export interface AddProductOutputDto {
+export interface AddProductRegistrationOutputDto {
   id: string;
   name: string;
   description: string;

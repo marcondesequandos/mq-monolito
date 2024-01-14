@@ -4,7 +4,7 @@ import UseCaseInterface from "../../../@shared/usecase/use-case.interface";
 import ClientAdmFacadeInterface from "../../../client-adm/facade/client-adm.facade.interface";
 import InvoiceFacadeInterface from "../../../invoice/facade/invoice-facade.interface";
 import PaymentFacadeInterface from "../../../payment/facade/payment.facade.interface";
-import ProductAdmFacadeInterface from "../../../product-adm/facade/product-adm.facade.interface";
+import ProductAdmFacadeInterface from "../../../product-registration/facade/product-registration.facade.interface";
 import StoreCatalogFacadeInterface from "../../../store-catalog/facade/store-catalog.facade.interface";
 import Client from "../../domain/client.entity";
 import Order from "../../domain/order.entity";

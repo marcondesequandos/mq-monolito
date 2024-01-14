@@ -1,8 +1,8 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import Product from "../../domain/product.entity";
+import ProductRegistration from "../../domain/product-registration.entity";
 import CheckStockUseCase from "./check-stock.usecase";
 
-const product = new Product({
+const product = new ProductRegistration({
   id: new Id("1"),
   name: "Product",
   description: "Product description",

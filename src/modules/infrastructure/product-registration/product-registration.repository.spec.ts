@@ -1,10 +1,11 @@
 import { Sequelize } from "sequelize-typescript";
-import { ProductModel } from "./product-registration.model";
-import Product from "../domain/product.entity";
-import Id from "../../@shared/domain/value-object/id.value-object";
-import ProductRepository from "./product.repository";
+import { ProductRegistrationModel } from "./product-registration.model";
 
-describe("ProductRespository test", () => {
+import Id from "../../@shared/domain/value-object/id.value-object";
+import ProductRegistrationRepository from "./product-registration.repository";
+import ProductRegistration from "../../product-registration/domain/product-registration.entity";
+
+describe("ProductRegistrationRespository test", () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
@@ -15,7 +16,7 @@ describe("ProductRespository test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([ProductModel]);
+    await sequelize.addModels([ProductRegistrationModel]);
     await sequelize.sync();
   });
 
@@ -31,11 +32,11 @@ describe("ProductRespository test", () => {
       purchasePrice: 100,
       stock: 10,
     };
-    const product = new Product(productProps);
-    const productRepository = new ProductRepository();
+    const product = new ProductRegistration(productProps);
+    const productRepository = new ProductRegistrationRepository();
     await productRepository.add(product);
 
-    const productDb = await ProductModel.findOne({
+    const productDb = await ProductRegistrationModel.findOne({
       where: { id: productProps.id.id },
     });
 
@@ -47,8 +48,8 @@ describe("ProductRespository test", () => {
   });
 
   it("should find a product", async () => {
-    const productRepository = new ProductRepository();
-    ProductModel.create({
+    const productRepository = new ProductRegistrationRepository();
+    ProductRegistrationModel.create({
       id: "1",
       name: "Product 1",
       description: "Product 1 description",
