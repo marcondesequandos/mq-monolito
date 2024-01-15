@@ -1,7 +1,7 @@
-import ProductGateway from "../gateway/product.gateway";
-import Product from "../domain/product.entity";
+import ProductGateway from "../../../../store-catalog/gateway/product.gateway";
+import Product from "../../../../store-catalog/domain/product.entity";
 import ProductModel from "./product.model";
-import Id from "../../@shared/domain/value-object/id.value-object";
+import Id from "../../../../@shared/domain/value-object/id.value-object";
 
 export default class ProductRepository implements ProductGateway {
   async findAll(): Promise<Product[]> {
