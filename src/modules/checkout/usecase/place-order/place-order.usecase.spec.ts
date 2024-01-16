@@ -22,6 +22,7 @@ describe("PlaceOrderUseCase unit test", () => {
 
     it("should throw an error when product is out of stock", async () => {
       const mockProductFacade = {
+        addProduct: jest.fn(),
         checkStock: jest.fn(({ productId }: { productId: string }) =>
           Promise.resolve({
             productId,
@@ -29,7 +30,7 @@ describe("PlaceOrderUseCase unit test", () => {
           })
         ),
       };
-      //@ts-expect-error - force set productFacade
+      //@ ts-expect-error - force set productFacade
       placeOrderUseCase["_productFacade"] = mockProductFacade;
 
       let input: PlaceOrderInputDto = {
