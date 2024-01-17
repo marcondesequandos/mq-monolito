@@ -1,16 +1,13 @@
 import express, { Request, Response } from "express";
-import AddProductRegistrationUseCase from "../../../product-adm/usecase/add-product/add-product.usecase";
-import ProductRegistrationRepository from "../../../product-adm/repository/product.repository";
 import { AddProductInputDto } from "../../../product-adm/usecase/add-product/add-product.dto";
+import ProductFacadeFactory from "../../../product-adm/factory/facade.factory";
 export const productRegistrationRoute = express.Router();
 
 productRegistrationRoute.post("/", async (req: Request, res: Response) => {
-  const usecase = new AddProductRegistrationUseCase(
-    new ProductRegistrationRepository()
-  );
+  const productAdmFacade = ProductFacadeFactory.create();
 
   try {
-    const productRegistrationDto: AddProductInputDto = {
+    const productAdmDto: AddProductInputDto = {
       id: req.body.id,
       name: req.body.name,
       description: req.body.description,
@@ -18,7 +15,7 @@ productRegistrationRoute.post("/", async (req: Request, res: Response) => {
       stock: req.body.stock,
     };
 
-    const output = await usecase.execute(productRegistrationDto);
+    const output = await productAdmFacade.addProduct(productAdmDto);
     res.send(output);
   } catch (err) {
     res.status(500).send(err);
