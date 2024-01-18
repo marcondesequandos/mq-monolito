@@ -1,4 +1,3 @@
-import sequelize from "sequelize";
 import { Sequelize, DataTypes } from "sequelize";
 import { MigrationFn } from "umzug";
 

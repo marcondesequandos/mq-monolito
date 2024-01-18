@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { AddProductInputDto } from "../../../product-adm/usecase/add-product/add-product.dto";
 import ProductFacadeFactory from "../../../product-adm/factory/facade.factory";
-export const productRegistrationRoute = express.Router();
+export const productRoute = express.Router();
 
-productRegistrationRoute.post("/", async (req: Request, res: Response) => {
+productRoute.post("/", async (req: Request, res: Response) => {
   const productAdmFacade = ProductFacadeFactory.create();
 
   try {
